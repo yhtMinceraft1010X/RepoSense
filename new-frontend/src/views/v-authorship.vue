@@ -4,7 +4,7 @@
     span Code Panel
   .toolbar--multiline
     a(
-      v-if="activeFilesCount < this.selectedFiles.length",
+      v-if="activeFilesCount < selectedFiles.length",
       v-on:click="expandAll()"
     ) show all file details
     a(v-if="activeFilesCount > 0", v-on:click="collapseAll()") hide all file details
@@ -86,7 +86,7 @@
           label.binary-fileType(v-if="binaryFilesCount > 0")
             input.mui-checkbox--fileType(type="checkbox", v-model="isBinaryChecked")
             span(
-              v-bind:title="this.binaryFilesCount + \
+              v-bind:title="binaryFilesCount + \
               ' binary files (not included in total line count)'"
             )
               span {{ binaryFilesCount }} binary file(s)
@@ -173,6 +173,9 @@ export default {
   components: {
     vSegment,
   },
+  emits: [
+      'deactivate-tab',
+  ],
   data() {
     return authorshipInitialState();
   },
@@ -198,7 +201,7 @@ export default {
       this.updateSelectedFiles();
     },
 
-    authorshipOwnerWatchable() {
+    info() {
       Object.assign(this.$data, authorshipInitialState());
       this.initiate();
     },
@@ -270,7 +273,7 @@ export default {
 
       this.getRepoProps(repo);
       if (!repo || !this.info.author) {
-        window.app.isTabActive = false;
+        this.$emit('deactivate-tab');
         return;
       }
       if (repoCache.length === 2) {
@@ -541,10 +544,6 @@ export default {
   },
 
   computed: {
-    authorshipOwnerWatchable() {
-      return `${this.info.author}|${this.info.repo}|${this.info.isMergeGroup}`;
-    },
-
     sortingFunction() {
       return (a, b) => (this.toReverseSortFiles ? -1 : 1)
         * window.comparator(filesSortDict[this.filesSortType])(a, b);

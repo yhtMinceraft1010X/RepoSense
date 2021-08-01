@@ -24,6 +24,7 @@ import reposense.util.TimeUtil;
 public class CommitResultAggregator {
 
     private static final int DAYS_IN_MS = 24 * 60 * 60 * 1000;
+    private static final float ZERO_TOTAL_CONTRIBUTIONS_PERCENTAGE = (float) 0.0;
 
     /**
      * Returns the {@code CommitContributionSummary} generated from aggregating the {@code commitResults}.
@@ -47,10 +48,44 @@ public class CommitResultAggregator {
         Map<Author, Float> authorContributionVariance =
                 calcAuthorContributionVariance(authorDailyContributionsMap, startDate, lastDate, config.getZoneId());
 
+        Map<Author, Float> authorContributionPercentage = calcAuthorContributionPercentage(authorDailyContributionsMap);
+
         return new CommitContributionSummary(
                 config.getAuthorDisplayNameMap(),
                 authorDailyContributionsMap,
-                authorContributionVariance);
+                authorContributionVariance,
+                authorContributionPercentage);
+    }
+
+    /**
+     * Calculates each author's percentage of contributions to the repo.
+     */
+    private static Map<Author, Float> calcAuthorContributionPercentage(
+            Map<Author, List<AuthorDailyContribution>> intervalContributionMaps) {
+        Map<Author, Integer> intermediateResult = new HashMap<>();
+        for (Author author : intervalContributionMaps.keySet()) {
+            List<AuthorDailyContribution> individualContributions = intervalContributionMaps.get(author);
+            int individualContributionCount = individualContributions.stream().reduce(0, (
+                    x, y) -> x + y.getTotalContribution(), (x, y) -> x + y);
+            intermediateResult.put(author, individualContributionCount);
+        }
+        int totalContributionCount = 0; //Across all authors
+        for (Author author : intermediateResult.keySet()) {
+            totalContributionCount += intermediateResult.get(author);
+        }
+        Map<Author, Float> finalPercentages = new HashMap<>();
+        if (totalContributionCount == 0) {
+            for (Author author : intermediateResult.keySet()) {
+                finalPercentages.put(author, ZERO_TOTAL_CONTRIBUTIONS_PERCENTAGE);
+            }
+        } else {
+            for (Author author : intermediateResult.keySet()) {
+                float individualPercentage = (
+                        (float) intermediateResult.get(author) / (float) totalContributionCount) * 100;
+                finalPercentages.put(author, individualPercentage);
+            }
+        }
+        return finalPercentages;
     }
 
     /**

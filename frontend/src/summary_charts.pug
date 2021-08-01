@@ -133,6 +133,9 @@
         .summary-chart__title--percentile(
           v-if="filterGroupSelection === 'groupByNone'"
         ) {{ getPercentile(j) }} %
+        .summary-chart__title--percentile(
+          v-if="filterGroupSelection === 'groupByRepos'"
+        ) {{ user.percentage }} %
 
       .summary-chart__ramp(
         v-on:click="openTabZoomSubrange(user, $event, isGroupMerged(getGroupName(repo)))"

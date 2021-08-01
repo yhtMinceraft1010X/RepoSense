@@ -215,6 +215,7 @@ window.api = {
           name: author,
           repoId: repoName,
           variance: commits.authorContributionVariance[author],
+          percentage: commits.authorContributionPercentage[author],
           displayName: commits.authorDisplayNameMap[author],
           dailyCommits: commits.authorDailyContributionsMap[author],
           fileTypeContribution: commits.authorFileTypeContributionMap[author],

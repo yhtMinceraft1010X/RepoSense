@@ -110,6 +110,6 @@ with(this){return _c('h2',{attrs:{"id":"devops"}},[_c('span',{staticClass:"ancho
 with(this){return _c('p',[_v("If you want to understand and contribute to the DevOps aspect of RepoSense, you can refer to the "),_c('a',{attrs:{"href":"https://github.com/reposense/RepoSense/wiki/DevOps-guide"}},[_v("DevOps guide")]),_v(" for more information.")])}
 },function anonymous(
 ) {
-with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 3.0.6")]),_v(", generated on Fri, Sep 24, 2021, 12:19:53 PM UTC]")])])])}
+with(this){return _c('footer',[_c('div',{staticClass:"text-center"},[_c('small',[_v("["),_c('span',[_c('strong',[_v("Powered by")])]),_v(" "),_c('img',{attrs:{"src":"https://markbind.org/favicon.ico","width":"30"}}),_v(" "),_c('a',{attrs:{"href":"https://markbind.org/"}},[_v("MarkBind 3.0.6")]),_v(", generated on Thu, Dec 23, 2021, 4:26:06 AM UTC]")])])])}
 }];
   

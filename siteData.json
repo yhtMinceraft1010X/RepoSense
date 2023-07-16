@@ -296,6 +296,15 @@
       "headingKeywords": {}
     },
     {
+      "src": "ug/grantingWriteAccess.md",
+      "headings": {
+        "granting-write-access-to-a-repository": "Granting write-access to a repository",
+        "if-you-wish-to-use-personal-access-token": "If you wish to use personal access token:",
+        "if-you-wish-to-use-deploy-key": "If you wish to use deploy key:"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "ug/index.md",
       "title": "User guide",
       "headings": {
@@ -308,7 +317,6 @@
     },
     {
       "src": "ug/runSh.md",
-      "title": "",
       "headings": {
         "appendix-run-sh-format": "Appendix: run.sh format",
         "customizing-the-reposense-command": "Customizing the RepoSense command",
